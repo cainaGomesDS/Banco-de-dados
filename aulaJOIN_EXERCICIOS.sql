@@ -1,3 +1,4 @@
+CREATE DATABASE sprint2b;
 USE sprint2b;
 
 CREATE TABLE pessoa(
@@ -77,16 +78,25 @@ CREATE TABLE Pessoa2 (
     INSERT INTO Pessoa2 VALUES
 		(default, 'Kawê Dias', '1999-09-21', 1);
         
-	SELECT P2.nome, P1.nome as Nome,
-    P2.dtNascimento as Data_de_nascimento
+-- Teste para o ifnull
+	UPDATE Pessoa2 SET nome = null
+		WHERE idPessoa2 = 100;
+        
+-- Teste para o CASE
+	UPDATE Pessoa2 SET nome = 'Kawê Dias'
+		WHERE idPessoa2 = 100;
+
+	SELECT P1.nome as Namorada,
+    ifnull(P2.nome, "Pode não ser seu namorado") as namorado,
+    P1.dtNascimento as Data_de_nascimento_namorada,
+    P2.dtNascimento as Data_de_nascimento_namorado,
+	CASE 
+    WHEN P2.nome="Kawê Dias" THEN "É o seu namorado" 
+    ELSE 'Não é seu namorado'
+    END as namorado_ou_nao_namorado
     FROM 
     Pessoa2 as P2 
     JOIN 
     Pessoa1 as P1
     ON fkPessoa1 = idPessoa1;
         
-        
-    
-
-    
-    
